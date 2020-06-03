@@ -2,6 +2,7 @@ const fetch = require('node-fetch');
 const readlineSync = require('readline-sync');
 
 const requestUserData = async (username) => {
+  console.log(`Searching for ${username} on CodeWars...`);
   const BASE_URL = 'https://www.codewars.com/api/v1/';
   const response = await fetch(`${BASE_URL}/users/${username}`);
   const data = await response.json();
@@ -11,13 +12,13 @@ const requestUserData = async (username) => {
 
 const getUserInput = () => {
   const username = readlineSync.question('Please Enter a Username: ');
-  console.log(`Searching for ${username} on CodeWars...`);
   return username;
 };
 
 const getMenuOption = () => readlineSync.questionInt('> ');
 
 const waitForKeyPress = () => readlineSync.keyIn('Press any key to continue...');
+
 const menu = (username) => {
   console.log(`CodeWars User: ${username}`);
   console.log('1. Stats');
@@ -34,11 +35,19 @@ const displayUserStats = (data) => {
   waitForKeyPress();
 };
 
-const displayLanguageStats = (languages) => {
-  for (const langKey in languages) {
-    const { name, color, score } = languages[langKey];
-    console.log(`${langKey}: has the ${color} rank of ${name} with ${score} points!`);
-  }
+const processLanguageData = (languages) => Object.keys(languages).map((key) => ({
+  name: languages[key].name,
+  score: languages[key].score,
+  color: languages[key].color,
+  lang: key,
+}));
+
+const displayLanguageStats = (languageObj) => {
+  const languages = processLanguageData(languageObj);
+  languages.forEach((language) => {
+    const { lang, name, color, score } = language;
+    console.log(`${lang}: has the ${color} rank of ${name} with ${score} points!`);
+  });
   waitForKeyPress();
 };
 
