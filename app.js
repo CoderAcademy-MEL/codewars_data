@@ -6,10 +6,20 @@ const requestUserData = async (username) => {
   const response = await fetch(`${BASE_URL}/users/${username}`);
   const data = await response.json();
 
+  return data;
+}
+
+const getUserInput = () => {
+  const username = readlineSync.question('Please Enter a Username: ');
+  console.log(`Searching for ${username} on CodeWars...`);
+  return username;
+}
+
+const app = async () => {
+  const username = getUserInput();
+  const data = await requestUserData(username);
+
   console.log(data);
 }
 
-const username = readlineSync.question('Please Enter a Username: ');
-console.log(`Searching for ${username} on CodeWars...`);
-
-requestUserData(username);
+app();
