@@ -3,7 +3,14 @@
   "version": "1.0.0",
   "description": "Get user data from codewars api",
   "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
   "repository": "https://github.com/CoderAcademy-MEL/codewars_data",
   "author": "Edward Deam",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^2.6.0",
+    "readline-sync": "^1.4.10"
+  }
 }
