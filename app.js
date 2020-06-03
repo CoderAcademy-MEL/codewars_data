@@ -32,6 +32,13 @@ const displayUserStats = (data) => {
   console.log(`Rank: ${data.ranks.overall.name}`);
 }
 
+const displayLanguageStats = (languages) => {
+  for(const langKey in languages) {
+    const {name, color, score} = languages[langKey];
+    console.log(`${langKey}: has the ${color} rank of ${name} with ${score} points!`);
+  }
+}
+
 const app = async () => {
   const username = getUserInput();
   const data = await requestUserData(username);
@@ -44,6 +51,7 @@ const app = async () => {
       displayUserStats(data);
       break;
     case 2:
+      displayLanguageStats(data.ranks.languages);
       break;
     case 3:
       break;
