@@ -3,12 +3,18 @@ const readlineSync = require('readline-sync');
 
 const requestUserData = async (username) => {
   console.log(`Searching for ${username} on CodeWars...`);
+  try {
+    const BASE_URL = 'https://www.codewars.com/api/v1/';
+    const response = await fetch(`${BASE_URL}/users/${username}`);
 
-  const BASE_URL = 'https://www.codewars.com/api/v1/';
-  const response = await fetch(`${BASE_URL}/users/${username}`);
-  const data = await response.json();
+    if (!response.ok) throw new Error('User not Found!');
 
-  return data;
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error.message);
+    return null;
+  }
 };
 
 const getUserInput = () => readlineSync.question('Please Enter a Username: ');
@@ -58,6 +64,12 @@ const app = async () => {
   const data = await requestUserData(username);
 
   let running = true;
+
+  if (data == null) {
+    // If we failed to get data from the API we can't continue.
+    running = false;
+  }
+
   while (running) {
     displayMenu(data.username);
     const choice = getMenuOption();
