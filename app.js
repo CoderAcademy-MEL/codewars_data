@@ -17,12 +17,13 @@ const getUserInput = () => {
 
 const getMenuOption = () => readlineSync.questionInt('> ');
 
+const waitForKeyPress = () => readlineSync.keyIn('Press any key to continue...');
 const menu = (username) => {
   console.log(`CodeWars User: ${username}`);
   console.log('1. Stats');
   console.log('2. Languages');
   console.log('3. Quit');
-}
+};
 
 const displayUserStats = (data) => {
   console.log(`Statistics for ${data.username}`);
@@ -30,36 +31,41 @@ const displayUserStats = (data) => {
   console.log(`Leaderboard Position: #${data.leaderboardPosition}`);
   console.log(`Rank Score: ${data.ranks.overall.score}`);
   console.log(`Rank: ${data.ranks.overall.name}`);
-}
+  waitForKeyPress();
+};
 
 const displayLanguageStats = (languages) => {
-  for(const langKey in languages) {
-    const {name, color, score} = languages[langKey];
+  for (const langKey in languages) {
+    const { name, color, score } = languages[langKey];
     console.log(`${langKey}: has the ${color} rank of ${name} with ${score} points!`);
   }
-}
+  waitForKeyPress();
+};
 
 const app = async () => {
   const username = getUserInput();
   const data = await requestUserData(username);
+  let running = true;
 
-  menu(data.username);
-  const choice = getMenuOption();
+  while (running) {
+    menu(data.username);
+    const choice = getMenuOption();
 
-  switch(choice) {
-    case 1:
-      displayUserStats(data);
-      break;
-    case 2:
-      displayLanguageStats(data.ranks.languages);
-      break;
-    case 3:
-      break;
-    default:
-      console.log('Invalid Option')
+    switch (choice) {
+      case 1:
+        displayUserStats(data);
+        break;
+      case 2:
+        displayLanguageStats(data.ranks.languages);
+        break;
+      case 3:
+        running = false;
+        console.log('Goodbye!');
+        break;
+      default:
+        console.log('Invalid Option');
+    }
   }
-
-  console.log('end');
 };
 
 app();
