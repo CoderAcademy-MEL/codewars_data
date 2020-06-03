@@ -15,11 +15,43 @@ const getUserInput = () => {
   return username;
 };
 
+const getMenuOption = () => readlineSync.questionInt('> ');
+
+const menu = (username) => {
+  console.log(`CodeWars User: ${username}`);
+  console.log('1. Stats');
+  console.log('2. Languages');
+  console.log('3. Quit');
+}
+
+const displayUserStats = (data) => {
+  console.log(`Statistics for ${data.username}`);
+  console.log(`Honor: ${data.honor}`);
+  console.log(`Leaderboard Position: #${data.leaderboardPosition}`);
+  console.log(`Rank Score: ${data.ranks.overall.score}`);
+  console.log(`Rank: ${data.ranks.overall.name}`);
+}
+
 const app = async () => {
   const username = getUserInput();
   const data = await requestUserData(username);
 
-  console.log(data);
+  menu(data.username);
+  const choice = getMenuOption();
+
+  switch(choice) {
+    case 1:
+      displayUserStats(data);
+      break;
+    case 2:
+      break;
+    case 3:
+      break;
+    default:
+      console.log('Invalid Option')
+  }
+
+  console.log('end');
 };
 
 app();
