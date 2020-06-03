@@ -1,0 +1,9 @@
+{
+  "name": "codewars_data",
+  "version": "1.0.0",
+  "description": "Get user data from codewars api",
+  "main": "app.js",
+  "repository": "https://github.com/CoderAcademy-MEL/codewars_data",
+  "author": "Edward Deam",
+  "license": "MIT"
+}
