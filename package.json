@@ -4,7 +4,8 @@
   "description": "Get user data from codewars api",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "lint": "eslint app.js --fix"
   },
   "repository": "https://github.com/CoderAcademy-MEL/codewars_data",
   "author": "Edward Deam",
@@ -12,5 +13,10 @@
   "dependencies": {
     "node-fetch": "^2.6.0",
     "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2"
   }
 }
