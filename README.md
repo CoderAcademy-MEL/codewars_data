@@ -1,7 +1,7 @@
 # CodeWars API Terminal App 
 Example NodeJS terminal app using the CodeWars API.
 
-For a simpler single page app checkout the branch `basic`
+For a simpler single page app checkout the branch [basic](https://github.com/CoderAcademy-MEL/codewars_data/tree/basic)
 
 ## Setup
 This app requires node 10+ and yarn.
