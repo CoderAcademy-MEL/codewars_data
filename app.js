@@ -1,21 +1,5 @@
-const fetch = require('node-fetch');
 const { Display } = require('./src/display');
-
-const requestUserData = async (username) => {
-  console.log(`Searching for ${username} on CodeWars...`);
-  try {
-    const BASE_URL = 'https://www.codewars.com/api/v1/';
-    const response = await fetch(`${BASE_URL}/users/${username}`);
-
-    if (!response.ok) throw new Error('User not Found!');
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error.message);
-    return null;
-  }
-};
+const { Request } = require('./src/request');
 
 const processLanguageData = (languages) => Object.keys(languages).map((key) => ({
   name: languages[key].name,
@@ -26,7 +10,8 @@ const processLanguageData = (languages) => Object.keys(languages).map((key) => (
 
 const app = async () => {
   const username = Display.getUserInput();
-  const data = await requestUserData(username);
+  const request = new Request(username);
+  const data = await request.userData();
 
   let running = true;
 

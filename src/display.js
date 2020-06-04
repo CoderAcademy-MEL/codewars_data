@@ -9,8 +9,8 @@ class Display {
     return readlineSync.questionInt('> ');
   }
 
-  static waitForKeyPress() { 
-    return readlineSync.keyIn('Press any key to continue...'); 
+  static waitForKeyPress() {
+    return readlineSync.keyIn('Press any key to continue...');
   }
 
   static menu(username) {
