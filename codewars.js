@@ -16,7 +16,6 @@ const app = async () => {
     }
 
     user = new UserStats(data);
-    console.log(user);
   } catch (error) {
     console.error(error.message);
     running = false;
