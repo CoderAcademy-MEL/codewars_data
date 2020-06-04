@@ -4,7 +4,7 @@
   "description": "Get user data from codewars api",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node codewars.js",
     "lint": "eslint app.js src/*.js --fix"
   },
   "repository": "https://github.com/CoderAcademy-MEL/codewars_data",
