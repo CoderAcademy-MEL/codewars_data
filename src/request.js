@@ -11,7 +11,9 @@ class Request {
       const BASE_URL = 'https://www.codewars.com/api/v1/';
       const response = await fetch(`${BASE_URL}/users/${this.username}`);
 
-      if (!response.ok) throw new Error('User not Found!');
+      if (!response.ok) {
+        throw new Error(`Error with Codewars response was ${response.status}`);
+      }
 
       const data = await response.json();
       return data;

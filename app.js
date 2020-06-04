@@ -1,36 +1,37 @@
 const { Display } = require('./src/display');
 const { Request } = require('./src/request');
-
-const processLanguageData = (languages) => Object.keys(languages).map((key) => ({
-  name: languages[key].name,
-  score: languages[key].score,
-  color: languages[key].color,
-  lang: key,
-}));
+const { UserStats } = require('./src/user_stats');
 
 const app = async () => {
   const username = Display.getUserInput();
   const request = new Request(username);
-  const data = await request.userData();
-
+  let user;
   let running = true;
 
-  if (data == null) {
-    // If we failed to get data from the API we can't continue.
+  try {
+    const data = await request.userData();
+
+    if (data == null) {
+      throw new Error(`No Data for User: ${username}`);
+    }
+
+    user = new UserStats(data);
+    console.log(user);
+  } catch (error) {
+    console.error(error.message);
     running = false;
   }
 
   while (running) {
-    Display.menu(data.username);
+    Display.menu(user.name);
     const choice = Display.getOption();
 
     switch (choice) {
       case 1:
-        Display.userStats(data);
+        Display.userStats(user);
         break;
       case 2: {
-        const languages = processLanguageData(data.ranks.languages);
-        Display.languageStats(languages);
+        Display.languageStats(user.languages);
         break;
       }
       case 3:

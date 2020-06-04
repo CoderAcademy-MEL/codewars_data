@@ -21,11 +21,11 @@ class Display {
   }
 
   static userStats(data) {
-    console.log(`Statistics for ${data.username}`);
+    console.log(`Statistics for ${data.name}`);
     console.log(`Honor: ${data.honor}`);
     console.log(`Leaderboard Position: #${data.leaderboardPosition}`);
-    console.log(`Rank Score: ${data.ranks.overall.score}`);
-    console.log(`Rank: ${data.ranks.overall.name}`);
+    console.log(`Rank Score: ${data.score}`);
+    console.log(`Rank: ${data.rank}`);
 
     this.waitForKeyPress();
   }
